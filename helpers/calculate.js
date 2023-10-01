@@ -7,19 +7,19 @@ export const heightWeightRate = (height, weight) => {
     const feetInch = `${feet}' ${remainingInches}"`;
 
     const lbs = weight * 2.20462;
-    
+
     let body_type;
     let bgColor;
-    if(bmi <= 18.5){
+    if (bmi <= 18.5) {
         body_type = "WEAK";
         bgColor = "#e9573e";
-    } else if (bmi>18.5 && bmi <= 24.9){
+    } else if (bmi > 18.5 && bmi <= 24.9) {
         body_type = "LEAN";
         bgColor = "#239454";
     } else {
         body_type = "FAT";
         bgColor = "#e9573e";
-    } 
+    }
 
     return {
         bmi,
@@ -28,6 +28,6 @@ export const heightWeightRate = (height, weight) => {
         kg: weight,
         cm: height,
         body_type,
-        bgColor
+        bgColor,
     };
 };

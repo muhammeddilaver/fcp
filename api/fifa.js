@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export default axios.create({
-    baseURL: 'https://fifaindex.com',
+    baseURL: "https://fifaindex.com",
 });

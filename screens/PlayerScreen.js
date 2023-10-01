@@ -10,7 +10,12 @@ import React, { useEffect, useState } from "react";
 import * as cheerio from "cheerio";
 import fifa from "../api/fifa";
 import LoadingScreen from "./LoadingScreen";
-import { ageColor, positionColor, potColor, progressColor } from "../helpers/bgColor";
+import {
+    ageColor,
+    positionColor,
+    potColor,
+    progressColor,
+} from "../helpers/bgColor";
 import { heightWeightRate } from "../helpers/calculate";
 import {
     FontAwesome5,
@@ -717,11 +722,16 @@ export default function PlayerScreen({ route }) {
                     </Text>
                 </View>
             </View>
-            <View style={[styles.twoColumnsContainer,{
+            <View
+                style={[
+                    styles.twoColumnsContainer,
+                    {
                         borderBottomWidth: 1,
                         borderBlockColor: "#dedede",
                         paddingBottom: 15,
-                    }]}>
+                    },
+                ]}
+            >
                 <View style={styles.teamContainer}>
                     <View style={styles.teamNameContainer}>
                         <Text style={styles.teamName}>
@@ -837,7 +847,16 @@ export default function PlayerScreen({ route }) {
                             <Text style={styles.progressFeaturesContainerTitle}>
                                 ATTACK
                             </Text>
-                            <Text style={[styles.progressFeaturesContainerPoint, {color: progressColor(player.attackPoint.toFixed())}]}>
+                            <Text
+                                style={[
+                                    styles.progressFeaturesContainerPoint,
+                                    {
+                                        color: progressColor(
+                                            player.attackPoint.toFixed()
+                                        ),
+                                    },
+                                ]}
+                            >
                                 {player.attackPoint.toFixed()}
                             </Text>
                         </View>
@@ -880,7 +899,16 @@ export default function PlayerScreen({ route }) {
                             <Text style={styles.progressFeaturesContainerTitle}>
                                 SKILL
                             </Text>
-                            <Text style={[styles.progressFeaturesContainerPoint, {color: progressColor(player.skillPoint.toFixed())}]}>
+                            <Text
+                                style={[
+                                    styles.progressFeaturesContainerPoint,
+                                    {
+                                        color: progressColor(
+                                            player.skillPoint.toFixed()
+                                        ),
+                                    },
+                                ]}
+                            >
                                 {player.skillPoint.toFixed()}
                             </Text>
                         </View>
@@ -920,7 +948,16 @@ export default function PlayerScreen({ route }) {
                             <Text style={styles.progressFeaturesContainerTitle}>
                                 POWER
                             </Text>
-                            <Text style={[styles.progressFeaturesContainerPoint, {color: progressColor(player.powerPoint.toFixed())}]}>
+                            <Text
+                                style={[
+                                    styles.progressFeaturesContainerPoint,
+                                    {
+                                        color: progressColor(
+                                            player.powerPoint.toFixed()
+                                        ),
+                                    },
+                                ]}
+                            >
                                 {player.powerPoint.toFixed()}
                             </Text>
                         </View>
@@ -956,7 +993,16 @@ export default function PlayerScreen({ route }) {
                             <Text style={styles.progressFeaturesContainerTitle}>
                                 MOVEMENT
                             </Text>
-                            <Text style={[styles.progressFeaturesContainerPoint, {color: progressColor(player.movementPoint.toFixed())}]}>
+                            <Text
+                                style={[
+                                    styles.progressFeaturesContainerPoint,
+                                    {
+                                        color: progressColor(
+                                            player.movementPoint.toFixed()
+                                        ),
+                                    },
+                                ]}
+                            >
                                 {player.movementPoint.toFixed()}
                             </Text>
                         </View>
@@ -992,7 +1038,17 @@ export default function PlayerScreen({ route }) {
                             <Text style={styles.progressFeaturesContainerTitle}>
                                 MENTAL
                             </Text>
-                            <Text style={[styles.progressFeaturesContainerPoint, , {color: progressColor(player.mentalPoint.toFixed())}]}>
+                            <Text
+                                style={[
+                                    styles.progressFeaturesContainerPoint,
+                                    ,
+                                    {
+                                        color: progressColor(
+                                            player.mentalPoint.toFixed()
+                                        ),
+                                    },
+                                ]}
+                            >
                                 {player.mentalPoint.toFixed()}
                             </Text>
                         </View>
@@ -1033,10 +1089,20 @@ export default function PlayerScreen({ route }) {
                             <Text style={styles.progressFeaturesContainerTitle}>
                                 DEFENCE
                             </Text>
-                            <Text style={[styles.progressFeaturesContainerPoint, , {color: progressColor(player.defencePoint.toFixed())}]}>
+                            <Text
+                                style={[
+                                    styles.progressFeaturesContainerPoint,
+                                    ,
+                                    {
+                                        color: progressColor(
+                                            player.defencePoint.toFixed()
+                                        ),
+                                    },
+                                ]}
+                            >
                                 {player.defencePoint.toFixed()}
                             </Text>
-                        </View> 
+                        </View>
                         <View style={styles.progressFeaturesItems}>
                             <ProgressFeature
                                 title="Defensive Work Rate"
@@ -1059,12 +1125,12 @@ export default function PlayerScreen({ route }) {
             </View>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     progressFeaturesItems: {
         width: 140,
-        marginTop: 3
+        marginTop: 3,
     },
     progressFeaturesContainerPoint: {
         fontWeight: "bold",
@@ -1081,7 +1147,7 @@ const styles = StyleSheet.create({
     },
     progressFeaturesContainers: {
         flexDirection: "row",
-        marginTop:10,
+        marginTop: 10,
     },
     pricesText: {
         fontSize: 20,

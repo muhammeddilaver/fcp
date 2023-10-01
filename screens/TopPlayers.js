@@ -29,10 +29,10 @@ export default function TopPlayers() {
             playerId: playerId,
             customTitle: name,
         });
-    }
+    };
 
-    if(isLoading){
-        return <LoadingScreen/>
+    if (isLoading) {
+        return <LoadingScreen />;
     }
 
     return (
@@ -58,7 +58,7 @@ export default function TopPlayers() {
                 onEndReached={handleEndReached} // Sonuna gelindiğinde çalışacak işlev
                 onEndReachedThreshold={0.2} // Sonuna gelmeden önce ne kadar mesafe kaldığını ayarlar
             />
-            {isPaging && <LoadingScreen/>}
+            {isPaging && <LoadingScreen />}
         </View>
     );
 }
