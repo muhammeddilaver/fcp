@@ -5,19 +5,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { progressColor } from "../helpers/bgColor";
 
 const ProgressFeature = ({ title, point, star, text }) => {
-    if (star) {
-        point = star * 10 * 2;
-    }
 
-    if (text === "Low") {
-        point = 50;
-    }
-    if (text === "Med") {
-        point = 70;
-    }
-    if (text === "High") {
-        point = 100;
-    }
+    star && (point = star * 10 * 2);
+
+    text && text === "Low" && (point = 50);
+    text && text === "Med" && (point = 70);
+    text && text === "High" && (point = 100);
 
     return (
         <View style={styles.featureContainer}>
