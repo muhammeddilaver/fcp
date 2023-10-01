@@ -5,7 +5,6 @@ import { AntDesign } from "@expo/vector-icons";
 import { progressColor } from "../helpers/bgColor";
 
 const ProgressFeature = ({ title, point, star, text }) => {
-
     star && (point = star * 10 * 2);
 
     text && text === "Low" && (point = 50);
@@ -17,16 +16,37 @@ const ProgressFeature = ({ title, point, star, text }) => {
             <View style={styles.featureTitleContainer}>
                 <Text style={styles.featureTitle}>{title}</Text>
                 {!star && !text && (
-                    <Text style={[styles.featurePoint, {color: progressColor(point)}]}>{point}</Text>
+                    <Text
+                        style={[
+                            styles.featurePoint,
+                            { color: progressColor(point) },
+                        ]}
+                    >
+                        {point}
+                    </Text>
                 )}
                 {star && (
                     <View style={styles.stars}>
                         {Array.from({ length: star }).map((_, index) => (
-                            <AntDesign key={index} name="star" size={12} color="orange" />
+                            <AntDesign
+                                key={index}
+                                name="star"
+                                size={12}
+                                color="orange"
+                            />
                         ))}
                     </View>
                 )}
-                {text && <Text style={[styles.featurePoint, {color: progressColor(point)}]}>{text}</Text>}
+                {text && (
+                    <Text
+                        style={[
+                            styles.featurePoint,
+                            { color: progressColor(point) },
+                        ]}
+                    >
+                        {text}
+                    </Text>
+                )}
             </View>
             <ProgressBar
                 progress={point / 100}
@@ -45,19 +65,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     featurePoint: {
-        fontSize:12,
+        fontSize: 12,
     },
     featureTitle: {
-        fontSize:12,
+        fontSize: 12,
     },
     featureTitleContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom:1
+        marginBottom: 1,
     },
     featureContainer: {
-        marginTop:3
+        marginTop: 3,
     },
 });
 export default ProgressFeature;
