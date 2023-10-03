@@ -724,7 +724,7 @@ export default function PlayerScreen({ route }) {
             </View>
             <View
                 style={[
-                    styles.twoColumnsContainer,
+                    styles.rowContainer,
                     {
                         borderBottomWidth: 1,
                         borderBlockColor: "#dedede",
@@ -833,7 +833,16 @@ export default function PlayerScreen({ route }) {
                     </View>
                 )}
             </View>
-            <View style={styles.progressFeaturesContainers}>
+            <View
+                style={[
+                    styles.progressFeaturesContainers,
+                    {
+                        borderBottomWidth: 1,
+                        borderBlockColor: "#dedede",
+                        paddingBottom: 15,
+                    },
+                ]}
+            >
                 <ScrollView
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
@@ -1123,11 +1132,43 @@ export default function PlayerScreen({ route }) {
                     </View>
                 </ScrollView>
             </View>
+            <View style={styles.rowContainer}>
+                <View style={styles.traitsSpecialities}>
+                    <Text style={styles.traitsSpecialitiesTitle}>TRAITS</Text>
+                    {player.traits.map((trait, key) => (
+                        <Text style={styles.traitsSpecialitiesText} key={key}>
+                            {trait}
+                        </Text>
+                    ))}
+                </View>
+                <View style={styles.traitsSpecialities}>
+                    <Text style={styles.traitsSpecialitiesTitle}>
+                        SPECIALITIES
+                    </Text>
+                    {player.specialities.map((speciality, key) => (
+                        <Text style={styles.traitsSpecialitiesText} key={key}>
+                            {speciality}
+                        </Text>
+                    ))}
+                </View>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    traitsSpecialitiesText: {
+        alignSelf: "center",
+    },
+    traitsSpecialitiesTitle: {
+        fontWeight: "bold",
+        fontSize: 16,
+        color: "gray",
+        alignSelf: "center",
+    },
+    traitsSpecialities: {
+        flex: 1,
+    },
     progressFeaturesItems: {
         width: 140,
         marginTop: 3,
@@ -1201,10 +1242,6 @@ const styles = StyleSheet.create({
     teamContainer: {
         flex: 1,
         flexDirection: "column",
-    },
-    twoColumnsContainer: {
-        flexDirection: "row",
-        paddingVertical: 10,
     },
     bmiText: {
         justifyContent: "center",
