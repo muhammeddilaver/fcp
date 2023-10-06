@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
-import PlayerScreen from "./screens/PlayerScreen";
+import PlayerRoutes from "./routes/PlayerRoutes";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,7 @@ export default function App() {
                 />
                 <Stack.Screen
                     name="PlayerScreen"
-                    component={PlayerScreen}
+                    component={PlayerRoutes}
                     options={({ route }) => ({
                         headerTitle: route.params?.customTitle || "Player Page",
                         headerShown: false,
