@@ -4,8 +4,8 @@ import List from "../components/PlayerList/List";
 
 export default function TopPlayers() {
     return (
-        <View>
-            <List type={"/top"} />
+        <View style={{position:"absolute", top:0,right:0,left:0,bottom:0}}>
+            <List listType={"/top"} />
         </View>
     );
 }

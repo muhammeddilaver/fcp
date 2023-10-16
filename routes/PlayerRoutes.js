@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PlayerScreen from "../screens/PlayerScreens/PlayerScreen";
 import SimilarToPlayerScreen from "../screens/PlayerScreens/SimilarToPlayerScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import usePlayerResults from "../hooks/usePlayerResults";
+import LoadingScreen from "../screens/LoadingScreen";
 const Tab = createBottomTabNavigator();
 
 export default function PlayerRoutes({ route }) {
     const playerId = route.params.playerId;
+    const [isLoading, setIsLoading] = useState(true);
+    const { getPlayer, player } = usePlayerResults(playerId, {}, setIsLoading);
+    
+    if (isLoading) {
+        return <LoadingScreen />;
+    }
 
     return (
         <Tab.Navigator
@@ -36,13 +44,13 @@ export default function PlayerRoutes({ route }) {
             <Tab.Screen
                 name="MAIN"
                 component={PlayerScreen}
-                initialParams={{ playerId }}
+                initialParams={{ player }}
                 options={({ route }) => ({
                     headerTitle: route.params?.customTitle || "Player Page",
                     headerShown: false,
                 })}
             />
-            <Tab.Screen name="SIMILAR" component={SimilarToPlayerScreen} />
+            <Tab.Screen name="SIMILAR" initialParams={{ player }} component={SimilarToPlayerScreen} />
             <Tab.Screen name="COMPARE" component={SimilarToPlayerScreen} />
         </Tab.Navigator>
     );
