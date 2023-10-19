@@ -1,8 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import ProgressBar from "react-native-progress-bar-horizontal";
 import { AntDesign } from "@expo/vector-icons";
 import { progressColor } from "../helpers/bgColor";
+import {
+    Box,
+    HStack,
+    Progress,
+    ProgressFilledTrack,
+    Text,
+} from "@gluestack-ui/themed";
 
 const ProgressFeature = ({ title, point, star, text }) => {
     star && (point = star * 10 * 2);
@@ -12,21 +17,16 @@ const ProgressFeature = ({ title, point, star, text }) => {
     text && text === "High" && (point = 100);
 
     return (
-        <View style={styles.featureContainer}>
-            <View style={styles.featureTitleContainer}>
-                <Text style={styles.featureTitle}>{title}</Text>
+        <Box marginTop={4}>
+            <HStack justifyContent="space-between" alignItems="center">
+                <Text size={"xs"}>{title}</Text>
                 {!star && !text && (
-                    <Text
-                        style={[
-                            styles.featurePoint,
-                            { color: progressColor(point) },
-                        ]}
-                    >
+                    <Text size={"xs"} style={[{ color: progressColor(point) }]}>
                         {point}
                     </Text>
                 )}
                 {star && (
-                    <View style={styles.stars}>
+                    <HStack>
                         {Array.from({ length: star }).map((_, index) => (
                             <AntDesign
                                 key={index}
@@ -35,49 +35,19 @@ const ProgressFeature = ({ title, point, star, text }) => {
                                 color="orange"
                             />
                         ))}
-                    </View>
+                    </HStack>
                 )}
                 {text && (
-                    <Text
-                        style={[
-                            styles.featurePoint,
-                            { color: progressColor(point) },
-                        ]}
-                    >
+                    <Text size={"xs"} style={[{ color: progressColor(point) }]}>
                         {text}
                     </Text>
                 )}
-            </View>
-            <ProgressBar
-                progress={point / 100}
-                borderWidth={1}
-                height={10}
-                borderColor={progressColor(point)}
-                color={progressColor(point)}
-                duration={100}
-                fillColor={progressColor(point)}
-            />
-        </View>
+            </HStack>
+            <Progress value={point} h="$2">
+                <ProgressFilledTrack h="$2" bg={progressColor(point)} />
+            </Progress>
+        </Box>
     );
 };
-const styles = StyleSheet.create({
-    stars: {
-        flexDirection: "row",
-    },
-    featurePoint: {
-        fontSize: 12,
-    },
-    featureTitle: {
-        fontSize: 12,
-    },
-    featureTitleContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: 1,
-    },
-    featureContainer: {
-        marginTop: 3,
-    },
-});
+
 export default ProgressFeature;

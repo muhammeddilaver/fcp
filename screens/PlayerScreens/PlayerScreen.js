@@ -1,11 +1,4 @@
-import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { TouchableOpacity } from "react-native";
 import React from "react";
 import {
     ageColor,
@@ -23,6 +16,15 @@ import {
 } from "@expo/vector-icons";
 import numeral from "numeral";
 import ProgressFeature from "../../components/ProgressFeature";
+import {
+    Box,
+    Divider,
+    HStack,
+    Image,
+    ScrollView,
+    Text,
+    VStack,
+} from "@gluestack-ui/themed";
 
 export default function PlayerScreen({ route }) {
     const player = route.params.player;
@@ -30,311 +32,325 @@ export default function PlayerScreen({ route }) {
     /* console.log(player); */
 
     return (
-        <View style={styles.container}>
+        <Box>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 horizontal={false}
                 vertical={true}
             >
-                <View
-                    style={[
-                        styles.rowContainer,
-                        { borderBottomWidth: 1, borderBlockColor: "#dedede" },
-                    ]}
-                >
-                    <View style={styles.playerImageContainer}>
+                <Box borderBottomWidth={1} borderBlockColor="$secondary200">
+                    <HStack>
                         <Image
-                            style={styles.playerImage}
+                            size={"xl"}
+                            alt="Player Image"
                             source={{ uri: player.imageUrl }}
                         />
-                    </View>
-                    <View style={styles.headerRightContainer}>
-                        <Text style={styles.playerName}>{player.name}</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.favoriteButton}>
-                                <AntDesign
-                                    name="staro"
-                                    size={16}
-                                    color="white"
-                                />{" "}
-                                Add to Favorites
+                        <VStack
+                            justifyContent="center"
+                            alignItems="center"
+                            flex={1}
+                        >
+                            <Text size={"2xl"} bold>
+                                {player.name}
                             </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.rowContainer}>
+                            <TouchableOpacity>
+                                <Text
+                                    bgColor={"$teal600"}
+                                    color="$white"
+                                    width={200}
+                                    textAlign="center"
+                                    textAlignVertical="center"
+                                    p={"$1"}
+                                    borderRadius={100}
+                                >
+                                    <AntDesign
+                                        name="staro"
+                                        size={16}
+                                        color="white"
+                                    />{" "}
+                                    Add to Favorites
+                                </Text>
+                            </TouchableOpacity>
+                        </VStack>
+                    </HStack>
+                </Box>
+                <HStack
+                    paddingVertical={"$3"}
+                    borderBottomWidth={1}
+                    borderBlockColor="$secondary200"
+                >
                     <ScrollView
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
                     >
-                        <View style={styles.featureContainer}>
-                            <Text style={styles.featureTitle}>OVR</Text>
+                        <Box alignItems="center" marginHorizontal={10}>
+                            <Text size={"xs"} color={"$secondary300"}>
+                                OVR
+                            </Text>
                             <Text
-                                style={[
-                                    styles.featureContent,
-                                    potColor(player.ovr),
-                                ]}
+                                size={"2xl"}
+                                bold
+                                color="$white"
+                                p={"$1"}
+                                style={[potColor(player.ovr)]}
                             >
                                 {player.ovr}
                             </Text>
-                        </View>
-                        <View style={styles.featureContainer}>
-                            <Text style={styles.featureTitle}>POT</Text>
+                        </Box>
+                        <Box alignItems="center" marginHorizontal={10}>
+                            <Text size={"xs"} color={"$secondary300"}>
+                                POT
+                            </Text>
                             <Text
-                                style={[
-                                    styles.featureContent,
-                                    potColor(player.pot),
-                                ]}
+                                size={"2xl"}
+                                bold
+                                color="$white"
+                                p={"$1"}
+                                style={[potColor(player.pot)]}
                             >
                                 {player.pot}
                             </Text>
-                        </View>
-                        <View style={styles.featureContainer}>
-                            <Text style={styles.featureTitle}>AGE</Text>
+                        </Box>
+                        <Box alignItems="center" marginHorizontal={10}>
+                            <Text size={"xs"} color={"$secondary300"}>
+                                AGE
+                            </Text>
                             <Text
-                                style={[
-                                    styles.featureContent,
-                                    ageColor(player.age),
-                                ]}
+                                size={"2xl"}
+                                bold
+                                color="$white"
+                                p={"$1"}
+                                style={[ageColor(player.age)]}
                             >
                                 {player.age}
                             </Text>
-                        </View>
-                        <View style={styles.featureContainer}>
-                            <Text style={styles.featureTitle}>POSITIONS</Text>
+                        </Box>
+                        <Box alignItems="center" marginHorizontal={10}>
+                            <Text size={"xs"} color={"$secondary300"}>
+                                POSITIONS
+                            </Text>
                             {player.prefered_positions.map((item, i) => (
-                                <View
+                                <Text
                                     key={i}
-                                    style={[
-                                        styles.position,
-                                        positionColor(item.name),
-                                    ]}
+                                    size={"2xs"}
+                                    bold
+                                    color="$white"
+                                    width={30}
+                                    textAlign="center"
+                                    style={positionColor(item.name)}
                                 >
-                                    <Text style={styles.positionName}>
-                                        {item.name}
-                                    </Text>
-                                </View>
+                                    {item.name}
+                                </Text>
                             ))}
-                        </View>
-                        <View style={styles.featureContainer}>
-                            <Text style={styles.featureTitle}>FOOT</Text>
+                        </Box>
+                        <Box alignItems="center" marginHorizontal={10}>
+                            <Text size={"xs"} color={"$secondary300"}>
+                                FOOT
+                            </Text>
                             <Foundation
-                                style={
+                                transform={
                                     player.prefered_foot === "Right"
-                                        ? styles.rightFoot
-                                        : { textAlign: "center" }
+                                        ? [{ scaleX: -1 }]
+                                        : []
                                 }
                                 name="foot"
                                 size={40}
+                                textAlign="center"
                                 color="darkgray"
                             />
-                        </View>
-                        <View style={styles.featureContainer}>
+                        </Box>
+                        <Box alignItems="center" marginHorizontal={10}>
                             <Text
-                                style={[
-                                    styles.featureTitle,
-                                    { color: player.bmi.bgColor },
-                                ]}
+                                size={"xs"}
+                                style={[{ color: player.bmi.bgColor }]}
                             >
                                 {player.bmi.body_type}
                             </Text>
-                            <View style={[styles.bmiContainer]}>
-                                <View style={styles.bmiRow}>
+                            <VStack>
+                                <HStack alignItems="center">
                                     <FontAwesome5
                                         name="weight"
                                         size={18}
                                         color="gray"
                                     />
-                                    <Text style={styles.whText}>
+                                    <Text
+                                        fontSize={11}
+                                        lineHeight={12}
+                                        marginLeft={3}
+                                    >
                                         {player.bmi.kg} kg{"\n"}
                                         {player.bmi.lbs.toFixed()} lbs
                                     </Text>
-                                </View>
-                                <View style={styles.bmiRow}>
+                                </HStack>
+                                <Divider my="$0.5" />
+                                <HStack alignItems="center">
                                     <MaterialCommunityIcons
                                         name="human-male-height-variant"
                                         size={18}
                                         color="gray"
                                     />
-                                    <Text style={styles.whText}>
+                                    <Text
+                                        fontSize={11}
+                                        lineHeight={12}
+                                        marginLeft={3}
+                                    >
                                         {player.bmi.cm} cm{"\n"}
                                         {player.bmi.feetInch}
                                     </Text>
-                                </View>
-                            </View>
-                        </View>
+                                </HStack>
+                            </VStack>
+                        </Box>
                     </ScrollView>
-                </View>
-                <View
-                    style={[
-                        styles.rowContainer,
-                        {
-                            borderBottomWidth: 1,
-                            borderBlockColor: "#dedede",
-                            paddingBottom: 10,
-                        },
-                    ]}
+                </HStack>
+                <HStack
+                    paddingVertical={"$3"}
+                    borderBottomWidth={1}
+                    borderBlockColor="$secondary200"
                 >
-                    <View style={styles.priceContainers}>
-                        <Text style={styles.featureTitle}>VALUE</Text>
-                        <Text style={styles.pricesText}>
+                    <VStack flex={1} alignItems="center">
+                        <Text size={"sm"} color="$secondary300">
+                            VALUE
+                        </Text>
+                        <Text size={"xl"} color="$secondary400">
                             €{" "}
                             {numeral(player.value).format("0.0a").toUpperCase()}
                         </Text>
-                    </View>
-                    <View style={styles.priceContainers}>
-                        <Text style={styles.featureTitle}>WAGE</Text>
-                        <Text style={styles.pricesText}>
+                    </VStack>
+                    <VStack flex={1} alignItems="center">
+                        <Text size={"sm"} color="$secondary300">
+                            WAGE
+                        </Text>
+                        <Text size={"xl"} color="$secondary400">
                             €{" "}
                             {numeral(player.wage).format("0.0a").toUpperCase()}
                         </Text>
-                    </View>
-                </View>
-                <View
-                    style={[
-                        styles.rowContainer,
-                        {
-                            borderBottomWidth: 1,
-                            borderBlockColor: "#dedede",
-                            paddingBottom: 15,
-                        },
-                    ]}
+                    </VStack>
+                </HStack>
+                <HStack
+                    paddingVertical={"$3"}
+                    borderBottomWidth={1}
+                    borderBlockColor="$secondary200"
                 >
-                    <View style={styles.teamContainer}>
-                        <View style={styles.teamNameContainer}>
-                            <Text style={styles.teamName}>
-                                {player.teams[0].name.toUpperCase()}
-                            </Text>
-                        </View>
-                        <View style={styles.teamBodyContainer}>
+                    <VStack flex={1} alignItems="center">
+                        <Text bold color="$secondary400">
+                            {player.teams[0].name.toUpperCase()}
+                        </Text>
+                        <HStack marginTop={5}>
                             <Image
-                                style={styles.teamLogo}
+                                alt="Team Logo"
+                                size={"sm"}
                                 source={{ uri: player.teams[0].imageUrl }}
                             />
-                            <View style={styles.teamInfo}>
-                                <View style={styles.teamRow}>
+                            <VStack marginStart={5}>
+                                <HStack alignItems="center">
                                     <SimpleLineIcons
                                         name="location-pin"
                                         size={16}
                                         color="gray"
                                     />
-                                    <View
-                                        style={[
-                                            styles.teamPosition,
-                                            positionColor(
-                                                player.teams[0].position.name
-                                            ),
-                                        ]}
+
+                                    <Text
+                                        marginStart={3}
+                                        color="$white"
+                                        size={"xs"}
+                                        bold
+                                        w={30}
+                                        textAlign="center"
+                                        style={positionColor(
+                                            player.teams[0].position.name
+                                        )}
                                     >
-                                        <Text style={styles.teamPositionName}>
-                                            {player.teams[0].position.name.toUpperCase()}
-                                        </Text>
-                                    </View>
-                                </View>
-                                <View style={styles.teamRow}>
+                                        {player.teams[0].position.name.toUpperCase()}
+                                    </Text>
+                                </HStack>
+                                <HStack alignItems="center">
                                     <Ionicons
                                         name="shirt-outline"
                                         size={16}
                                         color="gray"
                                     />
-                                    <Text style={styles.kitNumber}>
+                                    <Text marginStart={3}>
                                         {player.teams[0].kit_number}
                                     </Text>
-                                </View>
-                                <View style={styles.teamRow}>
+                                </HStack>
+                                <HStack alignItems="center">
                                     <MaterialCommunityIcons
                                         name="book-edit-outline"
                                         size={16}
                                         color="gray"
                                     />
-                                    <Text style={styles.kitNumber}>
+                                    <Text marginStart={3}>
                                         {player.teams[0].contract_length}
                                     </Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
+                                </HStack>
+                            </VStack>
+                        </HStack>
+                    </VStack>
                     {player.teams[1] && (
-                        <View style={styles.teamContainer}>
-                            <View style={styles.teamNameContainer}>
-                                <Text style={styles.teamName}>
-                                    {player.teams[1].name.toUpperCase()}
-                                </Text>
-                            </View>
-                            <View style={styles.teamBodyContainer}>
+                        <VStack flex={1} alignItems="center">
+                            <Text bold color="$secondary400">
+                                {player.teams[1].name.toUpperCase()}
+                            </Text>
+                            <HStack marginTop={5}>
                                 <Image
-                                    style={styles.teamLogo}
+                                    alt="Team Logo"
+                                    size={"sm"}
                                     source={{ uri: player.teams[1].imageUrl }}
                                 />
-                                <View style={styles.teamInfo}>
-                                    <View style={styles.teamRow}>
+                                <VStack marginStart={5}>
+                                    <HStack alignItems="center">
                                         <SimpleLineIcons
                                             name="location-pin"
                                             size={16}
                                             color="gray"
                                         />
-                                        <View
-                                            style={[
-                                                styles.teamPosition,
-                                                positionColor(
-                                                    player.teams[1].position
-                                                        .name
-                                                ),
-                                            ]}
+                                        <Text
+                                            marginStart={3}
+                                            color="$white"
+                                            size={"xs"}
+                                            bold
+                                            w={30}
+                                            textAlign="center"
+                                            style={positionColor(
+                                                player.teams[1].position.name
+                                            )}
                                         >
-                                            <Text
-                                                style={styles.teamPositionName}
-                                            >
-                                                {player.teams[1].position.name.toUpperCase()}
-                                            </Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.teamRow}>
+                                            {player.teams[1].position.name.toUpperCase()}
+                                        </Text>
+                                    </HStack>
+                                    <HStack alignItems="center">
                                         <Ionicons
                                             name="shirt-outline"
                                             size={16}
                                             color="gray"
                                         />
-                                        <Text style={styles.kitNumber}>
+                                        <Text marginStart={3}>
                                             {player.teams[1].kit_number}
                                         </Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
+                                    </HStack>
+                                </VStack>
+                            </HStack>
+                        </VStack>
                     )}
-                </View>
-                <View
-                    style={[
-                        styles.progressFeaturesContainers,
-                        {
-                            borderBottomWidth: 1,
-                            borderBlockColor: "#dedede",
-                            paddingBottom: 15,
-                        },
-                    ]}
+                </HStack>
+                <HStack
+                    paddingVertical={"$3"}
+                    borderBottomWidth={1}
+                    borderBlockColor="$secondary200"
                 >
                     <ScrollView
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
                     >
-                        <View style={styles.progressFeaturesContainer}>
-                            <View
-                                style={
-                                    styles.progressFeaturesContainerTitleContainer
-                                }
-                            >
-                                <Text
-                                    style={
-                                        styles.progressFeaturesContainerTitle
-                                    }
-                                >
+                        <VStack marginHorizontal={"$2"}>
+                            <HStack justifyContent="space-between">
+                                <Text bold size={"md"} color="$secondary400">
                                     ATTACK
                                 </Text>
                                 <Text
+                                    bold
                                     style={[
-                                        styles.progressFeaturesContainerPoint,
                                         {
                                             color: progressColor(
                                                 player.attackPoint.toFixed()
@@ -344,8 +360,8 @@ export default function PlayerScreen({ route }) {
                                 >
                                     {player.attackPoint.toFixed()}
                                 </Text>
-                            </View>
-                            <View style={styles.progressFeaturesItems}>
+                            </HStack>
+                            <VStack w={140}>
                                 <ProgressFeature
                                     title="Attack Work Rate"
                                     text={player.ofensive_work_rate.replace(
@@ -373,24 +389,16 @@ export default function PlayerScreen({ route }) {
                                     title="Heading Acc."
                                     point={player.shooting.heading}
                                 />
-                            </View>
-                        </View>
-                        <View style={styles.progressFeaturesContainer}>
-                            <View
-                                style={
-                                    styles.progressFeaturesContainerTitleContainer
-                                }
-                            >
-                                <Text
-                                    style={
-                                        styles.progressFeaturesContainerTitle
-                                    }
-                                >
+                            </VStack>
+                        </VStack>
+                        <VStack marginHorizontal={"$2"}>
+                            <HStack justifyContent="space-between">
+                                <Text bold size={"md"} color="$secondary400">
                                     SKILL
                                 </Text>
                                 <Text
+                                    bold
                                     style={[
-                                        styles.progressFeaturesContainerPoint,
                                         {
                                             color: progressColor(
                                                 player.skillPoint.toFixed()
@@ -400,8 +408,8 @@ export default function PlayerScreen({ route }) {
                                 >
                                     {player.skillPoint.toFixed()}
                                 </Text>
-                            </View>
-                            <View style={styles.progressFeaturesItems}>
+                            </HStack>
+                            <VStack w={140}>
                                 <ProgressFeature
                                     title="Skill Moves"
                                     star={player.skill_moves}
@@ -426,24 +434,16 @@ export default function PlayerScreen({ route }) {
                                     title="Ball Control"
                                     point={player.ball_skills.ball_control}
                                 />
-                            </View>
-                        </View>
-                        <View style={styles.progressFeaturesContainer}>
-                            <View
-                                style={
-                                    styles.progressFeaturesContainerTitleContainer
-                                }
-                            >
-                                <Text
-                                    style={
-                                        styles.progressFeaturesContainerTitle
-                                    }
-                                >
+                            </VStack>
+                        </VStack>
+                        <VStack marginHorizontal={"$2"}>
+                            <HStack justifyContent="space-between">
+                                <Text bold size={"md"} color="$secondary400">
                                     POWER
                                 </Text>
                                 <Text
+                                    bold
                                     style={[
-                                        styles.progressFeaturesContainerPoint,
                                         {
                                             color: progressColor(
                                                 player.powerPoint.toFixed()
@@ -453,8 +453,8 @@ export default function PlayerScreen({ route }) {
                                 >
                                     {player.powerPoint.toFixed()}
                                 </Text>
-                            </View>
-                            <View style={styles.progressFeaturesItems}>
+                            </HStack>
+                            <VStack w={140}>
                                 <ProgressFeature
                                     title="Shot Power"
                                     point={player.shooting.shot_power}
@@ -475,24 +475,16 @@ export default function PlayerScreen({ route }) {
                                     title="Long Shots"
                                     point={player.shooting.long_shots}
                                 />
-                            </View>
-                        </View>
-                        <View style={styles.progressFeaturesContainer}>
-                            <View
-                                style={
-                                    styles.progressFeaturesContainerTitleContainer
-                                }
-                            >
-                                <Text
-                                    style={
-                                        styles.progressFeaturesContainerTitle
-                                    }
-                                >
+                            </VStack>
+                        </VStack>
+                        <VStack marginHorizontal={"$2"}>
+                            <HStack justifyContent="space-between">
+                                <Text bold size={"md"} color="$secondary400">
                                     MOVEMENT
                                 </Text>
                                 <Text
+                                    bold
                                     style={[
-                                        styles.progressFeaturesContainerPoint,
                                         {
                                             color: progressColor(
                                                 player.movementPoint.toFixed()
@@ -502,8 +494,8 @@ export default function PlayerScreen({ route }) {
                                 >
                                     {player.movementPoint.toFixed()}
                                 </Text>
-                            </View>
-                            <View style={styles.progressFeaturesItems}>
+                            </HStack>
+                            <VStack w={140}>
                                 <ProgressFeature
                                     title="Acceleration"
                                     point={player.physical.acceleration}
@@ -524,25 +516,16 @@ export default function PlayerScreen({ route }) {
                                     title="Balance"
                                     point={player.physical.balance}
                                 />
-                            </View>
-                        </View>
-                        <View style={styles.progressFeaturesContainer}>
-                            <View
-                                style={
-                                    styles.progressFeaturesContainerTitleContainer
-                                }
-                            >
-                                <Text
-                                    style={
-                                        styles.progressFeaturesContainerTitle
-                                    }
-                                >
+                            </VStack>
+                        </VStack>
+                        <VStack marginHorizontal={"$2"}>
+                            <HStack justifyContent="space-between">
+                                <Text bold size={"md"} color="$secondary400">
                                     MENTAL
                                 </Text>
                                 <Text
+                                    bold
                                     style={[
-                                        styles.progressFeaturesContainerPoint,
-                                        ,
                                         {
                                             color: progressColor(
                                                 player.mentalPoint.toFixed()
@@ -552,9 +535,8 @@ export default function PlayerScreen({ route }) {
                                 >
                                     {player.mentalPoint.toFixed()}
                                 </Text>
-                            </View>
-
-                            <View style={styles.progressFeaturesItems}>
+                            </HStack>
+                            <VStack w={140}>
                                 <ProgressFeature
                                     title="Aggression"
                                     point={player.mental.aggression}
@@ -579,25 +561,16 @@ export default function PlayerScreen({ route }) {
                                     title="Composure"
                                     point={player.mental.composure}
                                 />
-                            </View>
-                        </View>
-                        <View style={styles.progressFeaturesContainer}>
-                            <View
-                                style={
-                                    styles.progressFeaturesContainerTitleContainer
-                                }
-                            >
-                                <Text
-                                    style={
-                                        styles.progressFeaturesContainerTitle
-                                    }
-                                >
+                            </VStack>
+                        </VStack>
+                        <VStack marginHorizontal={"$2"}>
+                            <HStack justifyContent="space-between">
+                                <Text bold size={"md"} color="$secondary400">
                                     DEFENCE
                                 </Text>
                                 <Text
+                                    bold
                                     style={[
-                                        styles.progressFeaturesContainerPoint,
-                                        ,
                                         {
                                             color: progressColor(
                                                 player.defencePoint.toFixed()
@@ -607,8 +580,8 @@ export default function PlayerScreen({ route }) {
                                 >
                                     {player.defencePoint.toFixed()}
                                 </Text>
-                            </View>
-                            <View style={styles.progressFeaturesItems}>
+                            </HStack>
+                            <VStack w={140}>
                                 <ProgressFeature
                                     title="Defensive Work Rate"
                                     text={player.defensive_work_rate.replace(
@@ -624,222 +597,37 @@ export default function PlayerScreen({ route }) {
                                     title="Slide Tackle"
                                     point={player.defence.slide_tackle}
                                 />
-                            </View>
-                        </View>
+                            </VStack>
+                        </VStack>
                     </ScrollView>
-                </View>
-                <View style={styles.rowContainer}>
-                    <View style={styles.traitsSpecialities}>
-                        <Text style={styles.traitsSpecialitiesTitle}>
+                </HStack>
+                <HStack
+                    paddingVertical={"$3"}
+                    borderBottomWidth={1}
+                    borderBlockColor="$secondary200"
+                >
+                    <VStack flex={1} alignItems="center">
+                        <Text bold size={"md"} color="$secondary400">
                             TRAITS
                         </Text>
                         {player.traits.map((trait, key) => (
-                            <Text
-                                style={styles.traitsSpecialitiesText}
-                                key={key}
-                            >
+                            <Text size={"md"} color="$secondary400" key={key}>
                                 {trait}
                             </Text>
                         ))}
-                    </View>
-                    <View style={styles.traitsSpecialities}>
-                        <Text style={styles.traitsSpecialitiesTitle}>
+                    </VStack>
+                    <VStack flex={1} alignItems="center">
+                        <Text bold size={"md"} color="$secondary400">
                             SPECIALITIES
                         </Text>
                         {player.specialities.map((speciality, key) => (
-                            <Text
-                                style={styles.traitsSpecialitiesText}
-                                key={key}
-                            >
+                            <Text size={"md"} color="$secondary400" key={key}>
                                 {speciality}
                             </Text>
                         ))}
-                    </View>
-                </View>
+                    </VStack>
+                </HStack>
             </ScrollView>
-        </View>
+        </Box>
     );
 }
-
-const styles = StyleSheet.create({
-    traitsSpecialitiesText: {
-        alignSelf: "center",
-    },
-    traitsSpecialitiesTitle: {
-        fontWeight: "bold",
-        fontSize: 16,
-        color: "gray",
-        alignSelf: "center",
-    },
-    traitsSpecialities: {
-        flex: 1,
-    },
-    progressFeaturesItems: {
-        width: 140,
-        marginTop: 3,
-    },
-    progressFeaturesContainerPoint: {
-        fontWeight: "bold",
-    },
-    progressFeaturesContainerTitle: {
-        fontWeight: "bold",
-    },
-    progressFeaturesContainerTitleContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
-    progressFeaturesContainer: {
-        marginEnd: 20,
-    },
-    progressFeaturesContainers: {
-        flexDirection: "row",
-        marginTop: 10,
-    },
-    pricesText: {
-        fontSize: 20,
-        color: "gray",
-    },
-    priceContainers: {
-        flex: 1,
-        alignItems: "center",
-    },
-    kitNumber: {
-        marginStart: 3,
-        fontSize: 16,
-    },
-    teamPositionName: {
-        color: "white",
-        fontSize: 12,
-        textAlign: "center",
-        fontWeight: "bold",
-    },
-    teamPosition: {
-        width: 30,
-    },
-    teamRow: {
-        flexDirection: "row",
-        marginTop: 1,
-        alignItems: "center",
-    },
-    teamInfo: {
-        marginLeft: 10,
-        flexDirection: "column",
-    },
-    teamLogo: {
-        width: 60,
-        height: 60,
-        alignSelf: "center",
-    },
-    teamBodyContainer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "stretch",
-        marginTop: 10,
-    },
-    teamName: {
-        fontWeight: "bold",
-        fontSize: 16,
-        color: "gray",
-    },
-    teamNameContainer: {
-        alignItems: "center",
-    },
-    teamContainer: {
-        flex: 1,
-        flexDirection: "column",
-    },
-    bmiText: {
-        justifyContent: "center",
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-        textAlign: "center",
-    },
-    whText: {
-        paddingStart: 4,
-        fontSize: 10,
-        fontWeight: "bold",
-        color: "gray",
-    },
-    bmiRow: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    bmiContainer: {},
-    rightFoot: {
-        textAlign: "center",
-        transform: [{ scaleX: -1 }],
-    },
-    positionName: {
-        color: "white",
-        fontSize: 9,
-        width: 26,
-        textAlign: "center",
-        fontWeight: "bold",
-    },
-    position: {
-        width: 26,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    featureContent: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
-        textAlign: "center",
-        verticalAlign: "middle",
-        width: 35,
-        height: 35,
-    },
-    featureTitle: {
-        alignSelf: "center",
-        fontSize: 14,
-        fontWeight: "400",
-        color: "gray",
-    },
-    featureContainer: {
-        flexDirection: "column",
-        alignSelf: "center",
-        alignItems: "center",
-        justifyContent: "space-between",
-        height: 60,
-        margin: 10,
-    },
-    favoriteButton: {
-        borderWidth: 1,
-        borderRadius: 6,
-        fontSize: 14,
-        alignSelf: "center",
-        color: "white",
-        textAlign: "center",
-        backgroundColor: "#42aead",
-        paddingVertical: 2,
-        paddingHorizontal: 30,
-        verticalAlign: "middle",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    playerName: {
-        fontSize: 24,
-        fontWeight: "bold",
-        //color:"black"
-    },
-    headerRightContainer: {
-        flexDirection: "column",
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    playerImage: {
-        width: 120,
-        height: 120,
-    },
-    playerImageContainer: {},
-    rowContainer: {
-        flexDirection: "row",
-        paddingTop: 10,
-    },
-    container: {
-        paddingHorizontal: 10,
-    },
-});

@@ -1,15 +1,18 @@
-import {
-    FlatList,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    Text,
-    ActivityIndicator,
-    TextInput,
-} from "react-native";
 import React, { memo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import usePlayerListResults from "../../hooks/usePlayerListResults";
+import {
+    Box,
+    FlatList,
+    Input,
+    InputField,
+    InputIcon,
+    InputSlot,
+    SearchIcon,
+    Spinner,
+    Text,
+} from "@gluestack-ui/themed";
+import { TouchableOpacity } from "react-native";
 import Player from "./Player";
 import ErrorScreen from "../../screens/ErrorScreen";
 
@@ -45,7 +48,7 @@ const List = memo(({ listType, data = {} }) => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <Box>
             <FlatList
                 data={results.players}
                 renderItem={({ item }) => {
@@ -68,46 +71,25 @@ const List = memo(({ listType, data = {} }) => {
                 onEndReachedThreshold={0.2} // Sonuna gelmeden önce ne kadar mesafe kaldığını ayarlar
                 ListEmptyComponent={() =>
                     !isLoading && (
-                        <View
-                            style={{
-                                bottom: 0,
-                            }}
-                        >
+                        <Box>
                             <Text>No data available</Text>
-                        </View>
+                        </Box>
                     )
                 }
                 ListHeaderComponent={() => (
-                    <View style={styles.searchContainer}>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder="Search..."
-                        />
-                    </View>
+                    <Input>
+                        <InputSlot pl="$3">
+                            <InputIcon as={SearchIcon} />
+                        </InputSlot>
+                        <InputField placeholder="Search..." />
+                    </Input>
                 )}
                 ListFooterComponent={() =>
-                    (isLoading || isPaging) && (
-                        <ActivityIndicator
-                            size="large"
-                            color={"red"}
-                            animating
-                        />
-                    )
+                    (isLoading || isPaging) && <Spinner size="large" />
                 }
             />
-        </View>
+        </Box>
     );
-});
-
-const styles = StyleSheet.create({
-    searchContainer: {
-        padding: 10,
-    },
-    searchInput: {
-        fontSize: 16,
-        backgroundColor: "#f9f9f9",
-        padding: 10,
-    },
 });
 
 export default List;

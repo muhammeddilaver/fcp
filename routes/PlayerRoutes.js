@@ -5,13 +5,15 @@ import SimilarToPlayerScreen from "../screens/PlayerScreens/SimilarToPlayerScree
 import Ionicons from "react-native-vector-icons/Ionicons";
 import usePlayerResults from "../hooks/usePlayerResults";
 import LoadingScreen from "../screens/LoadingScreen";
+import CompareToPlayer from "../screens/PlayerScreens/CompareToPlayer";
+
 const Tab = createBottomTabNavigator();
 
 export default function PlayerRoutes({ route }) {
     const playerId = route.params.playerId;
     const [isLoading, setIsLoading] = useState(true);
     const { getPlayer, player } = usePlayerResults(playerId, {}, setIsLoading);
-    
+
     if (isLoading) {
         return <LoadingScreen />;
     }
@@ -22,7 +24,7 @@ export default function PlayerRoutes({ route }) {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
 
-                    if (route.name === "MAIN") {
+                    if (route.name === player.name) {
                         iconName = focused ? "person" : "person-outline";
                     } else if (route.name === "SIMILAR") {
                         iconName = focused ? "people" : "people-outline";
@@ -42,7 +44,7 @@ export default function PlayerRoutes({ route }) {
             })}
         >
             <Tab.Screen
-                name="MAIN"
+                name={player.name}
                 component={PlayerScreen}
                 initialParams={{ player }}
                 options={({ route }) => ({
@@ -50,8 +52,16 @@ export default function PlayerRoutes({ route }) {
                     headerShown: false,
                 })}
             />
-            <Tab.Screen name="SIMILAR" initialParams={{ player }} component={SimilarToPlayerScreen} />
-            <Tab.Screen name="COMPARE" component={SimilarToPlayerScreen} />
+            <Tab.Screen
+                name="SIMILAR"
+                initialParams={{ player }}
+                component={SimilarToPlayerScreen}
+            />
+            <Tab.Screen
+                name="COMPARE"
+                initialParams={{ player }}
+                component={CompareToPlayer}
+            />
         </Tab.Navigator>
     );
 }
