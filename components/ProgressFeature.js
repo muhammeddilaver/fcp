@@ -9,7 +9,7 @@ import {
     Text,
 } from "@gluestack-ui/themed";
 
-const ProgressFeature = ({ title, point, star, text }) => {
+const ProgressFeature = ({ title, point, star, text, opacity = "yes" }) => {
     star && (point = star * 10 * 2);
 
     text && text === "Low" && (point = 50);
@@ -17,7 +17,7 @@ const ProgressFeature = ({ title, point, star, text }) => {
     text && text === "High" && (point = 100);
 
     return (
-        <Box marginTop={4}>
+        <Box marginTop={4} opacity={opacity === "no" ? 0.3 : 1}>
             <HStack justifyContent="space-between" alignItems="center">
                 <Text size={"xs"}>{title}</Text>
                 {!star && !text && (

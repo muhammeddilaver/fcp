@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PlayerScreen from "../screens/PlayerScreens/PlayerScreen";
 import SimilarToPlayerScreen from "../screens/PlayerScreens/SimilarToPlayerScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import usePlayerResults from "../hooks/usePlayerResults";
 import LoadingScreen from "../screens/LoadingScreen";
 import CompareToPlayer from "../screens/PlayerScreens/CompareToPlayer";
+import { fetchPlayer } from "../api/fetch/fetchPlayer";
 
 const Tab = createBottomTabNavigator();
 
 export default function PlayerRoutes({ route }) {
     const playerId = route.params.playerId;
     const [isLoading, setIsLoading] = useState(true);
-    const { getPlayer, player } = usePlayerResults(playerId, {}, setIsLoading);
+    const [player, setPlayer] = useState({});
+
+    useEffect(() => {
+        const handleFetchPlayer = async () => {
+            const result = await fetchPlayer(playerId, {});
+            setPlayer(result);
+            setIsLoading(false);
+            return result;
+        };
+        handleFetchPlayer();
+    }, []);
 
     if (isLoading) {
         return <LoadingScreen />;
