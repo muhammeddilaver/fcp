@@ -6,7 +6,7 @@ import { Box } from "@gluestack-ui/themed";
 export default function TopPlayers() {
     return (
         <Box>
-            <List listType={"/top"} />
+            <List listType={"wonderkids"} />
         </Box>
     );
 }

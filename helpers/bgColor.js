@@ -11,18 +11,15 @@ export const progressColor = (point) => {
 };
 
 export const potColor = (point) => {
-    return {
-        backgroundColor:
-            point >= 90
-                ? "#239454"
-                : point < 90 && point >= 80
-                ? "#8dc153"
-                : point < 80 && point >= 70
-                ? "#f6bb43"
-                : point < 70 && point >= 60
-                ? "#e77e23"
-                : "#e9573e",
-    };
+    return point >= 90
+        ? "#239454"
+        : point < 90 && point >= 80
+        ? "#8dc153"
+        : point < 80 && point >= 70
+        ? "#f6bb43"
+        : point < 70 && point >= 60
+        ? "#e77e23"
+        : "#e9573e";
 };
 
 export const ageColor = (age) => {
@@ -78,15 +75,13 @@ export const positionColor = (position) => {
     const grayList = ["res", "sub"];
     //const redList = ["gk"];
 
-    return {
-        backgroundColor: blueList.includes(position)
-            ? "#4b89dc"
-            : greenList.includes(position)
-            ? "#8dc153"
-            : yellowList.includes(position)
-            ? "#f6bb43"
-            : grayList.includes(position)
-            ? "#bdc3c7"
-            : "#e9573e",
-    };
+    return blueList.includes(position)
+        ? "#4b89dc"
+        : greenList.includes(position)
+        ? "#8dc153"
+        : yellowList.includes(position)
+        ? "#f6bb43"
+        : grayList.includes(position)
+        ? "#bdc3c7"
+        : "#e9573e";
 };

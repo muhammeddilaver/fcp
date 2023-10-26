@@ -3,12 +3,12 @@ import { useNavigation } from "@react-navigation/native";
 import usePlayerListResults from "../../hooks/usePlayerListResults";
 import {
     Box,
-    FlatList,
     Input,
     InputField,
     InputIcon,
     InputSlot,
     SearchIcon,
+    SelectVirtualizedList,
     Spinner,
     Text,
 } from "@gluestack-ui/themed";
@@ -49,14 +49,15 @@ const List = memo(({ listType, data = {} }) => {
 
     return (
         <Box>
-            <FlatList
+            <SelectVirtualizedList
                 data={results.players}
+                initialNumToRender={15}
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity
-                            onPress={async () => {
+                            onPress={() => {
                                 setIsPaging(true);
-                                await handlePress(item.playerId, item.name);
+                                handlePress(item.playerId, item.name);
                                 setIsPaging(false);
                             }}
                         >
@@ -64,11 +65,11 @@ const List = memo(({ listType, data = {} }) => {
                         </TouchableOpacity>
                     );
                 }}
-                keyExtractor={(item, index) => {
-                    return item.playerId.toString();
-                }}
-                onEndReached={handleEndReached} // Sonuna gelindiğinde çalışacak işlev
-                onEndReachedThreshold={0.2} // Sonuna gelmeden önce ne kadar mesafe kaldığını ayarlar
+                keyExtractor={(item) => item.playerId.toString() + listType}
+                getItemCount={() => results.players.length}
+                getItem={(data, index) => data[index]}
+                onEndReached={handleEndReached}
+                onEndReachedThreshold={0.3}
                 ListEmptyComponent={() =>
                     !isLoading && (
                         <Box>

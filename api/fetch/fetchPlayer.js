@@ -512,5 +512,6 @@ export const fetchPlayer = async (playerId, data) => {
         .catch((error) => {
             console.error("Veri çekme hatası:", error);
         });
+        console.log(JSON.stringify(playerData))
     return playerData;
 };

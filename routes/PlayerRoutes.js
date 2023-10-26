@@ -4,8 +4,8 @@ import PlayerScreen from "../screens/PlayerScreens/PlayerScreen";
 import SimilarToPlayerScreen from "../screens/PlayerScreens/SimilarToPlayerScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import LoadingScreen from "../screens/LoadingScreen";
-import CompareToPlayer from "../screens/PlayerScreens/CompareToPlayer";
-import { fetchPlayer } from "../api/fetch/fetchPlayer";
+import { fetchPlayer } from "../api/fifaCMFetch/fetchPlayer";
+import CompareToPlayer from "../screens/PlayerScreens/CompareToPlayer/CompareToPlayer";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +34,7 @@ export default function PlayerRoutes({ route }) {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
 
-                    if (route.name === player.name) {
+                    if (route.name === player.player_firstname) {
                         iconName = focused ? "person" : "person-outline";
                     } else if (route.name === "SIMILAR") {
                         iconName = focused ? "people" : "people-outline";
@@ -54,7 +54,7 @@ export default function PlayerRoutes({ route }) {
             })}
         >
             <Tab.Screen
-                name={player.name}
+                name={player.player_firstname}
                 component={PlayerScreen}
                 initialParams={{ player }}
                 options={({ route }) => ({

@@ -15,7 +15,7 @@ const ProgressFeature = ({ title, point, star, text, opacity = "yes" }) => {
     text && text === "Low" && (point = 50);
     text && text === "Med" && (point = 70);
     text && text === "High" && (point = 100);
-
+    
     return (
         <Box marginTop={4} opacity={opacity === "no" ? 0.3 : 1}>
             <HStack justifyContent="space-between" alignItems="center">

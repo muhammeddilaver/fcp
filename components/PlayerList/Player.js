@@ -12,7 +12,7 @@ export default function Player({ player }) {
                         width={50}
                         height={50}
                         alt="Player Photo"
-                        source={{ uri: player.imageUrl }}
+                        source={{ uri: player.playerImgUrl }}
                     />
                     <Image
                         position="absolute"
@@ -22,7 +22,7 @@ export default function Player({ player }) {
                         width={15}
                         height={20}
                         alt="nation photo"
-                        source={{ uri: player.nationality.imageUrl }}
+                        source={{ uri: player.nationImgUrl }}
                     />
                     <Text
                         size="2xs"
@@ -39,7 +39,7 @@ export default function Player({ player }) {
                         {player.name}
                     </Text>
                     <HStack>
-                        {player.prefered_positions.map((position, index) => {
+                        {player.positions.map((position, index) => {
                             return (
                                 <Text
                                     key={index}
@@ -49,9 +49,9 @@ export default function Player({ player }) {
                                     color="$white"
                                     marginEnd={3}
                                     paddingHorizontal={4}
-                                    style={[positionColor(position.name)]}
+                                    backgroundColor={positionColor(position)}
                                 >
-                                    {position.name}
+                                    {position}
                                 </Text>
                             );
                         })}
@@ -68,7 +68,7 @@ export default function Player({ player }) {
                                 textAlign="center"
                                 bold
                                 size="2xl"
-                                style={[potColor(player.ovr)]}
+                                bgColor={potColor(player.ovr)}
                             >
                                 {player.ovr}
                             </Text>
@@ -92,7 +92,7 @@ export default function Player({ player }) {
                                 textAlign="center"
                                 bold
                                 size="2xl"
-                                style={[potColor(player.pot)]}
+                                bgColor={potColor(player.pot)}
                             >
                                 {player.pot}
                             </Text>
@@ -113,7 +113,7 @@ export default function Player({ player }) {
                     <Image
                         alt="Club logo"
                         size="xs"
-                        source={{ uri: player.team.imageUrl }}
+                        source={{ uri: player.teamImgUrl }}
                     />
                 </TouchableOpacity>
             </HStack>

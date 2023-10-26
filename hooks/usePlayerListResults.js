@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPlayerList } from "../api/fetch/fetchPlayerList";
+import { fetchPlayerList } from "../api/fifaCMFetch/fetchPlayerList";
 
 export default (listType, data, setIsLoading) => {
     const [results, setResults] = useState({
@@ -8,7 +8,7 @@ export default (listType, data, setIsLoading) => {
 
     const getPlayerList = async (data) => {
         try {
-            const result = await fetchPlayerList(data, listType);
+            const result = await fetchPlayerList(listType, data);
             setResults({
                 players: [...results.players, ...result.players],
                 pageCount: result.pageCount,
